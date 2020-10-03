@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Upload</title>
+Upload
 {% endblock title %}
 
 {% block heading %}
@@ -21,12 +21,10 @@
 <div class="container">
   <form method="post" enctype="multipart/form-data" class="form-group">
     {% csrf_token %}
-    <div class="custom-file mb-3">
-      <input type="file"  name="file"  class="custom-file-input" id="validatedCustomFile" required>
-      <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-      <div class="invalid-feedback">Example invalid custom file feedback</div>
+    <div class="input-group mb-1">
+    <input type="file" name="file" class="form-control p-1" required>
     </div>
-    <button type="submit"  class="btn btn-primary m-1">Upload</button>
+    <button type="submit"  class="btn btn-sm btn-primary m-1">Upload</button>
   </form>
 </div>
 
