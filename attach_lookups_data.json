@@ -1,0 +1,1 @@
+[{"model": "app.attach_lookup", "pk": 1, "fields": {"lookup_value": "IT_APP", "lookup_desc": "IT Sign Off"}}, {"model": "app.attach_lookup", "pk": 2, "fields": {"lookup_value": "CR", "lookup_desc": "Code Review"}}]

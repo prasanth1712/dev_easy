@@ -7,74 +7,81 @@
 {% endblock heading%}
 
 {% block content %}
-<ul class="list-group my-1">
     {% for obj in release_objects %}   
-
-        <li class="list-group-item list-group-item-action p-0 m-0">
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr class="d-flex" >
-                    <td class="col-2 " style="background-color:#C2C2C2">
-                        {{obj.fk_wmobject.object_id}}
-                    </td>
-                    <td class="col " colspan="10" style="background-color:#C2C2C2" >
-                        {{obj.fk_wmobject.object_desc}}
-                    </td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="col-2">
-                        Application Impact
-                    </td>
-                    <td class="col-10" colspan="10">
-                        {{obj.app_imp}}
-                    </td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="col-2">
-                        Process Impact
-                    </td>
-                    <td class="col-10" colspan="10">
-                        {{obj.proc_imp}}
-                    </td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="col-2">
-                        Objective
-                    </td>
-                    <td class="col-10" colspan="10">
-                        {{obj.objective}}
-                    </td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="col-2">
-                        Resolution
-                    </td>
-                    <td class="col-10" colspan="10" >
-                        {{obj.resolution}}
-                    </td>
-                </tr>
-                <tr class="d-flex">
-                    <td class="col-2 " style="vertical-align: top;">
-                        Screen
-                    </td>
-                    <td class="col-10" colspan="10">
-                        {% if obj.img1 %}
-                            <img src={{obj.img1.url}} alt="Image Not Found" class="img-thumbnail">
-                        {% endif %}
-                        {% if obj.img2 %}                    
-                            <img src={{obj.img2.url}}  class="img-thumbnail">
-                        {% endif %}
-                        {% if obj.img3 %}                    
-                            <img src={{ obj.img3.url }} alt="" class="img-thumbnail">
-                        {% endif %}
-    
-                    </td>
-                </tr>
-        </table>
-        </li>
-        <br>
+        <table class="table table-bordered" style="border: 1px solid black;">
+            <tr style="width:auto">
+                <td  style="background-color:#C2C2C2;padding:3px;">
+                    {{obj.fk_wmobject.object_id}}
+                </td>
+                <td  style="background-color:#C2C2C2;padding:3px;" >
+                    {{obj.fk_wmobject.object_desc}}
+                </td>
+            </tr>
+            <tr style="width:auto">
+                <td style="padding:3px;width:150px">
+                    Application Impact
+                </td>
+                <td  style="padding:3px;width:800px">
+                    {{obj.app_imp}}
+                </td>
+            </tr>
+            <tr style="width:auto">
+                <td style="padding:3px;width:150px">
+                    Process Impact
+                </td>
+                <td  style="padding:3px;width:800px">
+                    {{obj.proc_imp}}
+                </td>
+            </tr>
+            <tr style="width:auto">
+                <td style="padding:3px;width:150px">
+                    Objective
+                </td>
+                <td  style="padding:3px;width:800px">
+                    {{obj.objective}}
+                </td>
+            </tr>
+            <tr style="width:auto">
+                <td style="padding:3px;width:150px">
+                    Resolution
+                </td>
+                <td  style="padding:3px;width:800px">
+                    {{obj.resolution}}
+                </td>
+            </tr>
+            {% if obj.img1 %}
+            <tr style="width:auto">
+                <td style="vertical-align: top;padding: 3px;width:150px">
+                    Screen
+                </td>
+                <td  style="width:800px" >                        
+                    <img src={{obj.img1.url}} alt="Image Not Found" class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}
+            {% if obj.img2 %}
+            <tr style="width:auto">
+                <td  style="vertical-align: top;padding:3px;width:150px">
+                    Screen
+                </td>
+                <td  style="width:800px" >                        
+                    <img src={{obj.img2.url}} alt="Image Not Found" class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}
+            {% if obj.img3 %}
+            <tr style="width:auto">
+                <td  style="vertical-align: top;padding:3px;width:150px">
+                    Screen
+                </td>
+                <td style="width:800px">                        
+                    <img src={{obj.img3.url}} alt="Image Not Found" class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}   
+    </table>
+    <br>
 
     {% endfor %}
-</ul>
-
 {% endblock content %}
 

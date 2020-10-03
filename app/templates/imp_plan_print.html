@@ -42,22 +42,22 @@
                 </tr>
                 {% for obj in objs %}
                 <tr style="text-align:center;width:auto;">
-                    <td style="padding-top: 5px;" >{{seq_cnt}}</td>
-                    <td style="padding-top: 5px;" >{{obj.fk_wmobject.object_track}}</td>                    
-                    <td style="padding-top: 5px;" >{{obj.fk_wmobject.object_id}}</td>
-                    <td style="padding-top:5px;" ></td>
-                    <td style="padding-top:5px;" ></td>
-                    <td style="padding-top:5px;" >{{ forloop.counter }}</td>
-                    <td style="padding-top:5px;" >{{obj.object_path|lsplit:0}}</td>
-                    <td style="padding-top:5px;" >{{obj.object_path|lsplit:1}}</td>
-                    <td style="padding-top:5px;" >Latest</td>
-                    <td style="padding-top:5px;" >Prod</td>
-                    <td style="padding-top:5px;" ></td>
-                    <td style="padding-top:5px;" >{{obj.object_comment}}</td>
-                    <td style="padding-top:5px;" ></td>
-                    <td style="padding-top:5px;" >{{obj.object_backout}}</td>
-                    <td style="padding-top:5px;" >EBIZDEV/EBIZQA</td>
-                    <td style="padding-top:5px;" >{{obj.fk_wmobject.object_dev}}</td>
+                    <td style="padding-top: 3px;" >{{seq_cnt}}</td>
+                    <td style="padding-top: 3px;" >{{obj.fk_wmobject.object_track}}</td>                    
+                    <td style="padding-top: 3px;" >{{obj.fk_wmobject.object_id}}</td>
+                    <td style="padding-top: 3px;" ></td>
+                    <td style="padding-top: 3px;" ></td>
+                    <td style="padding-top: 3px;" >{{ forloop.counter }}</td>
+                    <td style="padding-top: 3px;" >{{obj.object_path|lsplit:0}}</td>
+                    <td style="padding-top: 3px;" >{{obj.object_path|lsplit:1}}</td>
+                    <td style="padding-top: 3px;" >Latest</td>
+                    <td style="padding-top: 3px;" >Prod</td>
+                    <td style="padding-top: 3px;" ></td>
+                    <td style="padding-top: 3px;" >{{obj.object_comment}}</td>
+                    <td style="padding-top: 3px;" ></td>
+                    <td style="padding-top: 3px;" >{{obj.object_backout}}</td>
+                    <td style="padding-top: 3px;" >EBIZDEV/EBIZQA</td>
+                    <td style="padding-top: 3px;" >{{obj.fk_wmobject.object_dev}}</td>
                 </tr>        
                 {% endfor %}
             </table>

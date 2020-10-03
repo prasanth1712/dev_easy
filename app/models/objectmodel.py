@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from PIL import Image
 
 
 
@@ -44,6 +45,20 @@ class wmobject_rel_notes(models.Model):
     img2 = models.ImageField(upload_to='Rel_Notes',null=True,blank=True)
     img3 = models.ImageField(upload_to='Rel_Notes',null=True,blank=True)
 
+    def save(self, *args, **kwargs):        
+        super().save(*args, **kwargs)
+        def set_size(img):        
+            imag = Image.open(img)
+            if imag.width > 600 or imag.height> 550:
+                output_size = (600, 550)
+                imag.thumbnail(output_size)
+                imag.save(img)
+        if self.img1:
+            set_size(self.img1.path)
+        if self.img2:
+            set_size(self.img2.path)
+        if self.img3:
+            set_size(self.img3.path)        
 
     def __str__(self):
         return 'Release Notes - '+str(self.fk_wmobject)
