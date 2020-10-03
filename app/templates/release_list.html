@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Release List
+{% endblock title %}
+
+
+{% block heading %}
+<div class="text-center">
+    Release List
+</div>
+{% endblock heading %}
+
+{% block toolbar %}
+ <a name="" id="" class="btn btn-primary btn-sm mx-1" href={% url 'app:Upld'  %} role="button">Upload</a>
+ <a name="" id="" class="btn btn-warning btn-sm" href={% url 'home' %} role="button">Back</a>
+{% endblock toolbar %}
+
+{% block content %}
+    <ul class="list-group" >
+        {% for rel in release_list %}    
+            <li class="list-group-item list-group-item-action py-1"><a href={% url 'app:release_objects' rel.object_rel %}>{{rel.object_rel}}</a></li>
+        {% endfor %}
+    </ul>
+    
+{% endblock content %}
+

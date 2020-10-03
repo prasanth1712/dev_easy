@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block heading %}
+{{obj.object_id}} - {{obj.object_desc}}
+{{obj.object_rel}}
+{% endblock heading %}
+
+{% block toolbar %}
+    <a name="" id="" class="btn btn-warning btn-sm" href={% url 'app:object' obj.object_rel obj.object_id %} role="button">Back</a>
+{% endblock  %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{formset.as_p}}
+            <input class="btn btn-primary my-1 btn-sm d-inline" type="submit" value="Save">
+            </form>        
+    </div>
+    
+    <div class="col">
+        <h5>Preview</h5>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    {{prev.app_imp}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{prev.proc_imp}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{prev.objective}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{prev.resolution}}
+                </td>
+            </tr>
+            {% if prev.img1 %}
+            <tr>
+                <td>
+                    <img src={{prev.img1.url}} alt="Image Not Found" class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}
+            {% if prev.img2 %}
+            <tr>
+                <td>
+                    <img src={{prev.img2.url}}  class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}
+            {% if prev.img3 %}
+            <tr>
+                <td>
+                    <img src={{ prev.img3.url }} alt="" class="img-thumbnail">
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>    
+</div>
+
+{% endblock content %}

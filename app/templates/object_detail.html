@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block heading %}
+{{object.object_id}} - {{object.object_desc}}
+{% endblock heading %}
+
+{% block toolbar %}
+    <a name="" id="" class="btn btn-primary mx-1 btn-sm d-inline" href=# role="button">Pull from Bitbucket</a>
+    <a name="" id="" class="btn btn-warning mx-1 btn-sm d-inline" href={% url 'app:rel_notes' object.object_rel object.object_id %} role="button">Release Note</a>
+    <a name="" id="" class="btn btn-warning mx-1 btn-sm d-inline" href={% url 'app:release_objects' object.object_rel %} role="button">Back</a>    
+{% endblock toolbar %}
+
+{% block content %}
+<div class="my-1">
+    <h5 class="d-inline ">Overview</h5>
+    
+    <ul class="list-group d-flex-inline flex-nowrap list-group-horizontal ">
+    {% for rec in res  %}                
+        <li class="list-group-item d-flex justify-content-between align-items-center py-1 ">
+            {{rec.object_type__lookup_desc}}
+        <span class="badge badge-primary badge-pill ml-2">{{rec.cnt}}</span>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+
+<div class="my-1 d-flex justify-content-between">
+    <h5 class="d-inline mb-2">Objects</h5>
+    <a name="" id="" class="btn btn-warning btn-sm d-inline" href={% url 'app:update'  object.object_rel object.object_id %} role="button">Edit</a>  
+</div>
+<table class="table table-hover table-bordered ">
+    <thead class="text-light " style="background-color:#14213D">
+            <tr>
+                <th class="pt-0 pb-0" >Type</th>
+                <th class="pt-0 pb-0">Path</th>
+                <th class="pt-0 pb-0">Backout</th>
+                <th class="pt-0 pb-0">Special</th>
+                <th class="pt-0 pb-0">Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dtl in dtls %}
+            <tr >
+                <td class="pt-0 pb-0">{{dtl.object_type}}</td>
+                <td class="pt-0 pb-0">{{dtl.object_path}}</td>
+                <td class="pt-0 pb-0">{{dtl.object_backout}}</td>
+                <td class="pt-0 pb-0">{{dtl.object_special}}</td>
+                <td class="pt-0 pb-0">{{dtl.object_comment}}</td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+</table>
+
+<div class="my-1 d-flex justify-content-between">
+    <h5 class="d-inline mb-2">Attachments</h5>
+    <a name="" id="" class="btn btn-warning btn-sm d-inline" href={% url 'app:update_attach'  object.object_rel object.object_id %} role="button">Edit</a>  
+</div>
+   
+<table class="table table-hover table-bordered ">
+    <thead style="background-color:#14213D" class="text-light">
+            <tr>
+                <th class="py-0" >AttachType</th>
+                <th class="py-0">Attachment</th>
+            </tr>        
+        </thead>
+        <tbody>
+        <div>
+            {% for att in attach %}
+            <tr >
+                <td class="pt-0 pb-0">{{att.attach_type}}</td>
+                <td class="pt-0 pb-0">{{att.attach_file}}</td>
+            </tr>
+            {% endfor %} 
+        </div>
+        </tbody>
+</table>
+
+{% endblock content %}
+

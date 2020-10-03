@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Upload</title>
+{% endblock title %}
+
+{% block heading %}
+<div class="text-center">
+  Release Objects Upload
+</div>
+
+{% endblock heading %}
+
+{% block toolbar %}
+<a name="" id="" class="btn btn-warning btn-sm" href={% url 'app:release_list' %} role="button">Back</a>
+{% endblock toolbar %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post" enctype="multipart/form-data" class="form-group">
+    {% csrf_token %}
+    <div class="custom-file mb-3">
+      <input type="file"  name="file"  class="custom-file-input" id="validatedCustomFile" required>
+      <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+      <div class="invalid-feedback">Example invalid custom file feedback</div>
+    </div>
+    <button type="submit"  class="btn btn-primary m-1">Upload</button>
+  </form>
+</div>
+
+  <br>
+  {{message}}  
+{% endblock %}

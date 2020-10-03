@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block heading %}
+    {{obj.object_id}} - {{obj.object_desc}}
+    {{obj.object_rel}}
+{% endblock heading %}
+
+{% block toolbar %}
+    <a name="" id="" class="btn btn-warning my-1 btn-sm" href={% url 'app:object' obj.object_rel obj.object_id %} role="button">Back</a>
+{% endblock%}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+
+<div >
+    <input class="btn btn-success  btn-sm my-1" type="button" onclick='check("test")' value="Add">
+    <input class="btn btn-primary btn-sm my-1" type="submit" value="Save">  
+</div>
+
+
+
+{% csrf_token %}
+{{ formset.management_form }}
+<table  id="frmset" class="table table-hover table-bordered mb-2">
+    <thead class="thead-dark">
+        <tr >
+            <th class="px-0 py-0 ">Type</th>
+            <th class="px-0 py-0 ">Attachement</th>
+            <th class="px-0 py-0 ">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for frm in formset %}
+            {{ frm.id }}
+                <tr > 
+                    <td class="px-0 py-0">{{frm.attach_type}}</td>
+                    <td class="px-0 py-0">{{frm.attach_file}}</td>
+                    <td class="px-0 py-0">{% if formset.can_delete %}
+                            {{ frm.DELETE }}
+                    {% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+<table id='empty_form' style="display: None;">
+    <td class="px-0 py-0">{{formset.empty_form.attach_type}}</td>
+    <td class="px-0 py-0">{{formset.empty_form.attach_file}}</td>
+    <td class="px-0 py-0">{% if formset.can_delete %}
+            {{ formset.empty_form.DELETE }}
+    {% endif %}</td>
+</table>
+
+
+</form>
+
+
+<script>
+    function check(par) {
+        var cnt = $("#id_form-TOTAL_FORMS").val();
+        //console.log($("#frmset").html());
+        var new_frm = $("#empty_form").html().replace(/__prefix__/g,cnt);
+        $("#frmset").append(new_frm);
+        $("#id_form-TOTAL_FORMS").val(parseInt(cnt)+1)
+        console.log($("#id_form-TOTAL_FORMS").val())
+    }
+</script>
+
+{% endblock content %}

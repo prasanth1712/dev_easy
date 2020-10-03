@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block heading %}
+    {{rel}} - Overview
+{% endblock heading %}
+
+{% block toolbar %}
+    <a name="" id="" class="btn btn-warning btn-sm" href={% url 'app:release_objects' rel %} role="button">Back</a>
+{% endblock toolbar %}
+{% block content %}    
+    <div class ="row">
+    <div class ="col-2">
+    <ul class="list-group mb-2 ">
+        {% for us in usde  %}                
+            <li class="list-group-item d-flex justify-content-between align-items-center " >
+                {{us.typ}}
+            <span class="badge badge-danger  justify-content-right">{{us.cnt}}
+            </span>                
+            </li>
+        {% endfor %}
+            <li class="list-group-item d-flex justify-content-between align-items-center " >
+                Merge
+            <span class="badge badge-danger  justify-content-right">{{merg.cnt__count}}
+            </span>                
+            </li>
+        </ul>
+    <ul class="list-group">
+    {% for rec in res  %}                
+        <li class="list-group-item d-flex justify-content-between align-items-center ">
+            {{rec.object_type__lookup_desc}}
+        <span class="badge badge-success  justify-content-right">{{rec.tot}} </span>
+        </li>
+    {% endfor %}
+
+    </ul>
+    </div>
+
+    <div class ="col-10">    
+        <table class="table table-bordered">
+            <tbody>
+                {% for obj in objs  %}  
+                {% if obj.cnt > 1%}
+                <tr class="bg-info">
+                {%else%}
+                <tr>
+                {% endif %}
+                    <td class="py-0 my-0">{{obj.object_type__lookup_desc}}</td>
+                    <td class="py-0 my-0">{{obj.object_path}}</td>
+                    <td class="py-0 my-0">{{obj.cnt}}</td>
+                    <td class="py-0 my-0">{{obj.fk_wmobject__object_id}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>                
+        </table>
+    </div>
+    </div>
+
+{% endblock %}

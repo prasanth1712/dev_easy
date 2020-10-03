@@ -1,0 +1,80 @@
+{% extends "base_print.html" %}
+{% block heading %}
+
+
+
+{{Rel}} - Release Notes
+{% endblock heading%}
+
+{% block content %}
+<ul class="list-group my-1">
+    {% for obj in release_objects %}   
+
+        <li class="list-group-item list-group-item-action p-0 m-0">
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr class="d-flex" >
+                    <td class="col-2 " style="background-color:#C2C2C2">
+                        {{obj.fk_wmobject.object_id}}
+                    </td>
+                    <td class="col " colspan="10" style="background-color:#C2C2C2" >
+                        {{obj.fk_wmobject.object_desc}}
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <td class="col-2">
+                        Application Impact
+                    </td>
+                    <td class="col-10" colspan="10">
+                        {{obj.app_imp}}
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <td class="col-2">
+                        Process Impact
+                    </td>
+                    <td class="col-10" colspan="10">
+                        {{obj.proc_imp}}
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <td class="col-2">
+                        Objective
+                    </td>
+                    <td class="col-10" colspan="10">
+                        {{obj.objective}}
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <td class="col-2">
+                        Resolution
+                    </td>
+                    <td class="col-10" colspan="10" >
+                        {{obj.resolution}}
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <td class="col-2 " style="vertical-align: top;">
+                        Screen
+                    </td>
+                    <td class="col-10" colspan="10">
+                        {% if obj.img1 %}
+                            <img src={{obj.img1.url}} alt="Image Not Found" class="img-thumbnail">
+                        {% endif %}
+                        {% if obj.img2 %}                    
+                            <img src={{obj.img2.url}}  class="img-thumbnail">
+                        {% endif %}
+                        {% if obj.img3 %}                    
+                            <img src={{ obj.img3.url }} alt="" class="img-thumbnail">
+                        {% endif %}
+    
+                    </td>
+                </tr>
+        </table>
+        </li>
+        <br>
+
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+

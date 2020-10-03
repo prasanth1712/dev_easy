@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block heading %}
+<div class="row justify-content-center">
+    {{Rel}} - Objects List
+</div>
+{% endblock heading %}
+
+{% block toolbar %}
+    <a name="" id="" class="btn btn-primary d-inline btn-sm mx-1" href=# role="button">Pull from Jira</a>
+    <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:release_overview' Rel %} role="button">Overview</a>
+    <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:notes' Rel %} role="button">Rel Notes</a>
+    <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:imp_plan' Rel %} role="button">Impl Plan</a>
+    <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:release_list'  %} role="button">Back</a>
+{% endblock toolbar %}
+
+{% block content %}
+
+    <ul class="list-group mb-2">
+        {% for obj in release_objects %}    
+            <li class="list-group-item list-group-item-action py-0 mt-0 mb-0"><a href={% url 'app:object'  obj.object_rel obj.object_id %} >{{obj}}</a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock content %}
+

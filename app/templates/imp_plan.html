@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load filters %}
+{% block heading %}
+{{Rel}} - Objects List
+{% endblock %}
+{% block toolbar %}
+<a name="" id="" class="btn btn-primary  btn-sm mx-1" href=# role="button">Get Driver File</a>
+<a name="" id="" class="btn btn-warning  btn-sm mx-1" href={% url 'app:imp_pdf' Rel %} role="button">Download</a>
+<a name="" id="" class="btn btn-warning  btn-sm  %}" href={% url 'app:release_objects' Rel %} role="button">Back</a>
+{% endblock %}
+{% block content %}
+<div class="d-flex overflow-auto">
+    <ul class="list-group mb-2">
+        {% for head,objs in cont.items %}    
+            <li class="list-group-item list-group-item-action py-0" style="background-color:#9a8c98;color:white">{{head}}</li>
+            {% comment %} {{objs}} {% endcomment %}
+            <table class="table table-hover table-bordered p-0 mb-1">        
+                <tr>
+                    <th class="h6 py-0 my-0">S.No</th>
+                    <th class="h6 py-0 my-0">Track</th>                    
+                    <th class="h6 py-0 my-0">CR# / US#</th>
+                    <th class="h6 py-0 my-0">Status</th>
+                    <th class="h6 py-0 my-0">Pre-Req Task</th>
+                    <th class="h6 py-0 my-0">Seq#</th>
+                    <th class="h6 py-0 my-0">P4V Location</th>
+                    <th class="h6 py-0 my-0">Object File Name</th>
+                    <th class="h6 py-0 my-0">Version#</th>
+                    <th class="h6 py-0 my-0">Execution Schema</th>
+                    <th class="h6 py-0 my-0">Object Name</th>
+                    <th class="h6 py-0 my-0">Comments</th>
+                    <th class="h6 py-0 my-0">Special Instructions</th>
+                    <th class="h6 py-0 my-0">Backout Instructions</th>
+                    <th class="h6 py-0 my-0">DB Instances (For Dev / UAT)</th>
+                    <th class="h6 py-0 my-0">Requestor</th>                    
+                </tr>
+                {% for obj in objs %}
+                <tr>
+                    <td class="h6 py-0 my-0"></td>
+                    <td class="h6 py-0 my-0">{{obj.fk_wmobject.object_track}}</td>                    
+                    <td class="h6 py-0 my-0">{{obj.fk_wmobject.object_id}}</td>
+                    <td class="h6 py-0 my-0"></td>
+                    <td class="h6 py-0 my-0"></td>
+                    <td class="h6 py-0 my-0">{{ forloop.counter }}</td>
+                    <td class="h6 py-0 my-0">{{obj.object_path|lsplit:0}}</td>
+                    <td class="h6 py-0 my-0">{{obj.object_path|lsplit:1}}</td>
+                    <td class="h6 py-0 my-0">Latest</td>
+                    <td class="h6 py-0 my-0">Prod</td>
+                    <td class="h6 py-0 my-0"></td>
+                    <td class="h6 py-0 my-0">{{obj.object_comment}}</td>
+                    <td class="h6 py-0 my-0"></td>
+                    <td class="h6 py-0 my-0">{{obj.object_backout}}</td>
+                    <td class="h6 py-0 my-0">EBIZDEV/EBIZQA</td>
+                    <td class="h6 py-0 my-0">{{obj.fk_wmobject.object_dev}}</td>
+                </tr>        
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock content %}

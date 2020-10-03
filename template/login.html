@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div >
+    <div class="text-danger text-center">
+        {% if form.errors %}
+        <h3>Your username and password didn't match. Please try again.</h3>
+        {% endif %}
+        
+        {% if next %}
+            {% if user.is_authenticated %}
+            <h3>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</h3>
+            {% else %}
+            <h3>Please login to see this page.</h3>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="d-flex justify-content-center ">
+        <form method="post" action="{% url 'login' %}" class="form-group">
+            {% csrf_token %}
+            <table class="table  ">
+            <tr class="row">
+                <td class="col">{{ form.username.label_tag }}</td>
+                <td class="col">{{ form.username }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">{{ form.password.label_tag }}</td>
+                <td class="col">{{ form.password }}</td>
+            </tr> 
+            <tr class="row">
+                <td class="col"></td>
+                <td  class="col" ><input type="submit" value="login" class="btn btn-success"></td>
+            </tr>
+            </table>
+                        
+            {% if not next %}
+                <input name="next" type="hidden" value="{% url 'home' %}">
+            {% else %}
+                <input name="next" type="hidden" value="{{next}}">
+            {% endif %}
+        </form>            
+        
+    </div>
+        
+</div>
+
+{% endblock %}
