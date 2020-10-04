@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import home
+from .views import home ,about
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/',include('app.urls'),name='app'),
     path('',home,name='home'),
+    path('about/',about,name='about'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='home'),name='logout'),
 ]
