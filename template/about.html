@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="text-center  ">
-    <h3 class="">
+    <h3 class="mt-0">
         Release App
     </h3>
 </div>
@@ -58,66 +58,76 @@
             <tbody>
                 <tr>
                     <td>Current</td>
-                    <td>6 Persons X 4 hrs = 24 hrs</td>
+                    <td>6 Persons X 4 hrs = 24 hrs
+                        <br>
+                        <small>Tasks - Verification, Merging, Release Notes & formating, Imp Plan, Objects add/mod/del</small>
+                    </td>
                     <td>40-60 hrs</td>
                     <td>5-10 hrs</td>
                     <td>69-84 hrs</td>
                 </tr>
                 <tr style="color:#f4a261">
                     <td>App V1</td>
-                    <td>6 Persons X 3 hrs = 18 hrs</td>
+                    <td>6 Persons X 2.5 hrs = 15 hrs
+                        <br>
+                        <small>Tasks - Verification, Merging, Objects add/mod/del</small>
+                    </td>
                     <td>20-40 hrs</td>
                     <td>5-10 hrs</td>
-                    <td>43-68 hrs</td>
+                    <td>40-65 hrs</td>
                 </tr>
                 <tr>
                     <td>App V2</td>
-                    <td>6 Persons X 2 hrs = 12 hrs</td>
+                    <td>3 Persons X 2 hrs = 6 hrs
+                        <br>
+                        <small>Tasks - Verification, Merging</small>
+                    </td>
                     <td>10-20 hrs</td>
                     <td>0-5 hrs</td>
-                    <td>22-37 hrs</td>
+                    <td>16-31 hrs</td>
                 </tr>
                 <tr >
                     <td></td>
-                    <td>Total hrs saved / release / team</td>
+                    <td>Total hrs saved / release / team                    
+                    </td>
                     <td>30-40 hrs</td>
                     <td>0-5 hrs</td>
-                    <td class="bg-danger text-light">40-45 hrs</td>
+                    <td class="bg-danger text-light">50-53 hrs</td>
                 </tr>
             </tbody>
         </table>    
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr class="text-center">
-                    <th colspan="3">Technology Stack</th>
+                    <th colspan="3" class="p-1">Technology Stack</th>
                 </tr>
                 <tr class="text-center">
-                    <th>Front End</th>
-                    <th>Back End</th>
-                    <th>Server</th>
+                    <th class="p-1">Front End</th>
+                    <th class="p-1">Back End</th>
+                    <th class="p-1">Server</th>
                 </tr>                
             </thead>
             <tbody>
-                <tr>
-                    <td>
+                <tr >
+                    <td >
                         <ul class="list-group">
-                            <li class="list-group-item">HTML/CSS</li>
-                            <li class="list-group-item">JavaScript</li>
+                            <li class="list-group-item p-1">HTML/CSS</li>
+                            <li class="list-group-item p-1">JavaScript</li>
                             
                         </ul>
                     </td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item">SQLlite -  Database</li>
-                            <li class="list-group-item">Django - Web Framework</li>
-                            <li class="list-group-item">Python</li>
+                            <li class="list-group-item p-1">SQLlite -  Database</li>
+                            <li class="list-group-item p-1">Django - Web Framework</li>
+                            <li class="list-group-item p-1">Python</li>
                         </ul>
                     </td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item">Apache2 Web Server</li>
-                            <li class="list-group-item">Hosted on BMC Cloud</li>
-                            <li class="list-group-item text-light bg-danger">Public IP - 172.20.21.110:88</li>
+                            <li class="list-group-item p-1">Apache2 Web Server</li>
+                            <li class="list-group-item p-1">Hosted on BMC VM</li>
+                            <li class="list-group-item text-light bg-danger p-1">Public IP - 172.20.21.110:88</li>
                         </ul>
                     </td>
                 </tr>

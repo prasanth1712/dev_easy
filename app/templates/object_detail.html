@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block heading %}
 {{object.object_id}} - {{object.object_desc}}
+<br>
+<div class="text-right">
+Dev - {{object.object_dev}}
+QA- {{object.object_qa}}     
+</div>
 {% endblock heading %}
 
 {% block toolbar %}
