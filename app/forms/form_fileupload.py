@@ -6,7 +6,8 @@ class fileupload(forms.Form):
 
 def load_file(model,cols,file):
     data = pd.read_excel(file)
-    data.columns = cols
-    print('2')
+    col_len = len(data.columns)
+    data.columns = cols[:col_len]
+    #print('2')
     data = data.to_dict('records')
     return data

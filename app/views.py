@@ -11,7 +11,7 @@ from django.db.models.functions import Substr
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
+from app.jira_api import get_objects
 
 
 #pr code
@@ -116,7 +116,7 @@ class upload_view(FormView):
     def post(self,request,*args,**kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            cols = ['object_id','object_desc','object_rel']      
+            cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']      
             data=load_file(wmobject,cols,request.FILES['file'])
             print(data)
             upsert(wmobject,data,cols,'object_id')
@@ -294,3 +294,20 @@ class imp_plan(LoginRequiredMixin,ListView):
         context.update({'cont':con_dic,'Rel':self.kwargs['release']})
         return context
 
+@login_required(login_url='/accounts/login/')
+def update_item(request,release,pk):
+    cols = ['object_id','object_desc','object_rel','object_dev','object_type','object_track','object_qa']      
+    data = get_objects('Q2C1',obj_id=pk)
+    upsert(wmobject,data,cols,'object_id')
+    return HttpResponseRedirect(reverse('app:object',kwargs={'release':release,'pk':pk}))
+
+
+@login_required(login_url='/accounts/login/')
+def update_release_items(request,release):
+    cols = ['object_id','object_desc','object_rel','object_dev','object_type','object_track','object_qa']  
+    prjs = ['QCAR','QCOM','QCCR','Q2CO','Q2C1']
+    for prj in prjs:    
+        data = get_objects(prj,fixver=release)
+        print(len(data))
+        upsert(wmobject,data,cols,'object_id')
+    return HttpResponseRedirect(reverse('app:release_objects',kwargs={'release':release}))

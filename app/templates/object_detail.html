@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block heading %}
+<span class="badge badge-info">{{object.object_type}}</span>
 {{object.object_id}} - {{object.object_desc}}
+  
 <br>
 <div class="text-right">
 Dev - {{object.object_dev}}
@@ -9,7 +11,7 @@ QA- {{object.object_qa}}
 {% endblock heading %}
 
 {% block toolbar %}
-    <a name="" id="" class="btn btn-primary mx-1 btn-sm d-inline" href=# role="button">Pull from Bitbucket</a>
+    <a name="" id="" class="btn btn-primary mx-1 btn-sm d-inline" href={% url 'app:update_from_jira' object.object_rel object.object_id %} role="button">Update from Jira</a>
     <a name="" id="" class="btn btn-warning mx-1 btn-sm d-inline" href={% url 'app:rel_notes' object.object_rel object.object_id %} role="button">Release Note</a>
     <a name="" id="" class="btn btn-warning mx-1 btn-sm d-inline" href={% url 'app:release_objects' object.object_rel %} role="button">Back</a>    
 {% endblock toolbar %}
@@ -32,7 +34,10 @@ QA- {{object.object_qa}}
 
 <div class="my-1 d-flex justify-content-between">
     <h5 class="d-inline mb-2">Objects</h5>
+    <div class="my-1 d-flex justify-content-right">
+    <a name="" id="" class="btn btn-primary mx-1 btn-sm d-inline" href=# role="button">Pull from Bitbucket</a>
     <a name="" id="" class="btn btn-warning btn-sm d-inline" href={% url 'app:update'  object.object_rel object.object_id %} role="button">Edit</a>  
+    </div>
 </div>
 <table class="table table-hover table-bordered ">
     <thead class="text-light " style="background-color:#14213D">

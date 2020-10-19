@@ -3,7 +3,13 @@ from django.urls import reverse
 from PIL import Image
 
 
+class field_map(models.Model):
+    app_class = models.CharField(max_length=200,null=False,blank=False)
+    app_field = models.CharField(max_length=200,null=False,blank=False)
+    map_field = models.CharField(max_length=200,null=False,blank=False)
+    status = models.CharField(choices=[('A','ACTIVE'),('I','INACTIVE')],blank=False,null=False,default='INACTIVE',max_length=50) 
 
+    
 class lookups(models.Model):
     lookup_type_code = models.CharField(max_length=200)
     lookup_value_code = models.CharField(max_length=200)
@@ -20,6 +26,7 @@ class lookups(models.Model):
 
 class wmobject(models.Model):
     object_id = models.CharField(primary_key=True,max_length=200)
+    object_type = models.CharField(max_length=200,blank=False,null=False,default='Other')
     object_desc = models.CharField(blank=True,max_length=2000,null=True)
     object_rel = models.CharField(blank=True,max_length=200,null=True)
     object_track = models.CharField(blank=True,max_length=200,null=True)
@@ -51,7 +58,7 @@ class wmobject_rel_notes(models.Model):
             imag = Image.open(img)
             if imag.width > 600 or imag.height> 550:
                 output_size = (600, 550)
-                imag.thumbnail(output_size)
+                imag.resize(output_size)
                 imag.save(img)
         if self.img1:
             set_size(self.img1.path)
@@ -95,13 +102,15 @@ def upsert(model,data_dic,cols,pk):
             records = model.objects.filter(object_id=data[pk])
             if len(records)>0:
                 for rec in records:
-                    for col in cols:                      
-                        setattr(rec,col,data[col])                        
+                    for col in cols:
+                        if col in data.keys():                    
+                            setattr(rec,col,data[col])                        
                     rec.save()
             else:
                 new_rec = model()
-                for col in cols:                                     
-                    setattr(new_rec,col,data[col])                        
+                for col in cols:
+                    if col in data.keys():                                
+                        setattr(new_rec,col,data[col])                        
                 new_rec.save()
 
 

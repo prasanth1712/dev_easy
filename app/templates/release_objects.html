@@ -6,7 +6,7 @@
 {% endblock heading %}
 
 {% block toolbar %}
-    <a name="" id="" class="btn btn-primary d-inline btn-sm mx-1" href=# role="button">Pull from Jira</a>
+    <a name="" id="" class="btn btn-primary d-inline btn-sm mx-1" href={% url 'app:upd_from_jira' Rel %} role="button">Pull from Jira</a>
     <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:release_overview' Rel %} role="button">Overview</a>
     <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:notes' Rel %} role="button">Rel Notes</a>
     <a name="" id="" class="btn btn-warning d-inline btn-sm mx-1" href={% url 'app:imp_plan' Rel %} role="button">Impl Plan</a>
