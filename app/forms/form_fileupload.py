@@ -11,3 +11,8 @@ def load_file(model,cols,file):
     #print('2')
     data = data.to_dict('records')
     return data
+
+
+class PullJiraProject(forms.Form):
+    project_name = forms.CharField(required=False)
+    fix_version = forms.CharField(required=False)

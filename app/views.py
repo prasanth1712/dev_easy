@@ -1,7 +1,7 @@
 from django.shortcuts import render,reverse,HttpResponseRedirect
 from django.views.generic import  FormView,ListView,DetailView,UpdateView
 from django.views import View
-from app.forms.form_fileupload import fileupload,load_file
+from app.forms.form_fileupload import fileupload,load_file,PullJiraProject
 from app import forms_test as frm
 from django.http import request,HttpResponse
 from app.models.objectmodel import wmobject,upsert,wmobject_details,wmobject_attachments,wmobject_rel_notes,lookups
@@ -118,6 +118,25 @@ class upload_view(FormView):
         if form.is_valid():
             cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']      
             data=load_file(wmobject,cols,request.FILES['file'])
+            print(data)
+            upsert(wmobject,data,cols,'object_id')
+            return render(request, self.template_name,{'message':'Upload successful'})
+        else:
+            return render(request, self.template_name,{})
+
+
+class jira_load_view(LoginRequiredMixin,FormView):
+    template_name = 'jira_load.html'
+    form_class = PullJiraProject
+    success_url = '/sucess/'
+
+    def post(self,request,*args,**kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            prjt = str(request.POST['project_name']).strip()
+            fixver = str(request.POST['fix_version']).strip()
+            data = get_objects(project=prjt,fixver=fixver)
+            cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']
             print(data)
             upsert(wmobject,data,cols,'object_id')
             return render(request, self.template_name,{'message':'Upload successful'})

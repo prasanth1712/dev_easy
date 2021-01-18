@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Jira Pull
+{% endblock title %}
+
+{% block heading %}
+<div class="text-center">
+  Objects from Jira Projects
+</div>
+
+{% endblock heading %}
+
+{% block toolbar %}
+<a name="" id="" class="btn btn-warning btn-sm" href={% url 'app:release_list' %} role="button">Back</a>
+{% endblock toolbar %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post" enctype="multipart/form-data" class="form-group">
+    {% csrf_token %}
+    
+    <div class="input-group m-1">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Project Code</span>
+    </div>
+    <input type="text" class="form-control" name="project_name" placeholder="Project Code" aria-label="Project Code" aria-describedby="basic-addon1">
+  </div>
+
+    <div class="input-group m-1">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Fix Version</span>
+    </div>
+    <input type="text" class="form-control" name="fix_version" placeholder="Fix Version" aria-label="Fix Version" aria-describedby="basic-addon1">
+  </div>
+    <button type="submit"  class="btn btn-sm btn-primary m-1">Pull</button>
+  </form>
+<br>
+  {{message}}  
+</div>
+
+{% endblock %}

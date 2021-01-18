@@ -7,6 +7,7 @@ app_name='app'
 
 urlpatterns = [
             path('upload/',views.upload_view.as_view(),name='Upld'),
+            path('jira_load/',views.jira_load_view.as_view(),name='jira_load'),
             path('release/',views.ReleaseListView.as_view(),name='release_list'),
             path('release/<release>/',views.ReleaseObjectListView.as_view(),name='release_objects'),
             path('release/<release>/Overview',views.rel_overview.as_view(),name='release_overview'),

@@ -1,8 +1,8 @@
 from jira import JIRA,Issue,Project
 
-server = 'https://itjira.bmc.com/'
+server = 'http://itjiraapi.bmc.com/' #'https://itjira.bmc.com/'
 user_name = 'pr'
-pwd = 'ppph@517915'
+pwd = 'Sri@1993'#'ppph@517915'
 
 
 def get_objects(project,fixver=None,obj_id=None,fields=None):
@@ -19,10 +19,11 @@ def get_objects(project,fixver=None,obj_id=None,fields=None):
         else:
             if fields.find('fixVersions') <0:
                 fields+=',fixVersions'
-        object_list = jira.search_issues(jql_str=jql_str,fields=fields)
+        object_list = jira.search_issues(jql_str=jql_str,fields=fields,maxResults=200)
         for i in range(0,len(object_list)):
             fix_ver = object_list[i].fields.fixVersions
             if (fix_ver and str(fix_ver[0]).strip()==str(fixver).strip()) or (obj_id):
+            #if (fix_ver  or obj_id):
                 obj['object_id']=object_list[i].key
                 obj['object_desc']=object_list[i].fields.summary
                 obj['object_rel']=str(fix_ver[0]).strip()
