@@ -13,6 +13,7 @@ urlpatterns = [
             path('release/<release>/Overview',views.rel_overview.as_view(),name='release_overview'),
             path('release/<release>/impplan',views.imp_plan.as_view(),name='imp_plan'),
             path('release/<release>/update_from_jira',views.update_release_items,name='upd_from_jira'),
+            path('release/<release>/<pk>/update_from_bitbucket',views.update_bitbucket_files,name='upd_from_bitbucket'),
             path('release/<release_plan>/impplan/pdf',views.render_pdf_view,name='imp_pdf'),
             path('release/<release>/pdf',views.render_pdf_view,name='pdf'),
             path('release/<release>/rel_notes',views.rel_notes_listview.as_view(),name='notes'),

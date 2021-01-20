@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from app.jira_api import get_objects
-
+from app.bitbucket import get_files
 
 #pr code
 import os
@@ -136,8 +136,9 @@ class jira_load_view(LoginRequiredMixin,FormView):
             prjt = str(request.POST['project_name']).strip()
             fixver = str(request.POST['fix_version']).strip()
             data = get_objects(project=prjt,fixver=fixver)
-            cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']
-            print(data)
+            #cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']
+            cols = ['object_id','object_desc','object_rel','object_dev','object_type','object_track','object_qa']
+            #print(data)
             upsert(wmobject,data,cols,'object_id')
             return render(request, self.template_name,{'message':'Upload successful'})
         else:
@@ -187,8 +188,13 @@ class rel_overview(LoginRequiredMixin,View):
         res = p.values('object_type__lookup_desc').annotate(cnt=Count('object_type__lookup_desc',distinct=True),tot=Count('object_type__lookup_desc')).order_by('object_type__lookup_order')
         objs = p.values('object_type__lookup_desc','object_path').annotate(cnt=Count('object_path')).order_by('object_type__lookup_order')
         #objs = p.values('object_type__lookup_desc','object_path').order_by('object_type__lookup_order')
-        p1 = p.annotate(typ=Substr('fk_wmobject__object_id',1,2))
-        usde = p1.values('typ').annotate(cnt=Count('typ'))
+        #p1 = p.annotate(typ=Substr('fk_wmobject__object_id',1,2))
+        #p1 = p.annotate(typ='object_type')
+        #usde = p.values('fk_wmobject__object_type').annotate(cnt=Count('fk_wmobject__object_type'))
+        usde = wmobject.objects.filter(object_rel=kwargs['release']) \
+                .values('object_type')  \
+                .annotate(cnt=Count('object_type')) \
+                .order_by('object_type')
         merg_objs = objs.filter(cnt__gt=1).aggregate(Count('cnt'))
         return render(request,'release_overview.html',{'rel':kwargs['release'],'res':res,'objs':objs,'usde':usde,'merg':merg_objs})
 
@@ -231,10 +237,10 @@ class wmobject_detail_update(LoginRequiredMixin,View):
 
     def post(self,request,*args,**kwargs):
         frm_set = self.frm_set(request.POST)
+        data = wmobject.objects.get(pk=kwargs['pk'])
 
         if frm_set.is_valid():
             instances = frm_set.save(commit=False)        
-            data = wmobject.objects.get(pk=kwargs['pk'])
 
             for obj in frm_set.deleted_objects:
                 obj.delete()
@@ -320,6 +326,22 @@ def update_item(request,release,pk):
     upsert(wmobject,data,cols,'object_id')
     return HttpResponseRedirect(reverse('app:object',kwargs={'release':release,'pk':pk}))
 
+
+@login_required(login_url='/accounts/login/')
+def update_bitbucket_files(request,release,pk):
+    lst = get_files(pk)
+    obj = wmobject.objects.get(object_id=pk)
+    lkp = None
+    for i in lst:
+        lk = []
+        spl = i.split('.')
+        if len(spl)>1:
+            lk=lookups.objects.filter(lookup_extns__icontains = spl[1])
+            if len(lk)>0:
+                lkp = lk[0]
+                
+        wmobject_details.objects.update_or_create(fk_wmobject=obj,object_path=i,object_type=lkp)        
+    return HttpResponseRedirect(reverse('app:object',kwargs={'release':release,'pk':pk}))
 
 @login_required(login_url='/accounts/login/')
 def update_release_items(request,release):

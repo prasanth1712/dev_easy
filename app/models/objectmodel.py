@@ -16,6 +16,7 @@ class lookups(models.Model):
     lookup_value = models.CharField(max_length=200,)
     lookup_desc = models.CharField(max_length=200,blank=True,null=True)
     lookup_order = models.IntegerField(null=True,blank=True,default=0)
+    lookup_extns = models.CharField(max_length=200,blank=True,null=True)
 
     class Meta:
         ordering = ['lookup_order']

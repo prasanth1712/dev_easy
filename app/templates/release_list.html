@@ -13,7 +13,7 @@ Release List
 
 {% block toolbar %}
  <a name="" id="" class="btn btn-primary btn-sm mx-1" href={% url 'app:jira_load'  %} role="button">Jira</a>
- <a name="" id="" class="btn btn-primary btn-sm mx-1" href={% url 'app:Upld'  %} role="button">Upload</a>
+ {% comment %} <a name="" id="" class="btn btn-primary btn-sm mx-1" href={% url 'app:Upld'  %} role="button">Upload</a> {% endcomment %}
  <a name="" id="" class="btn btn-warning btn-sm mx-1" href={% url 'home' %} role="button">Back</a>
 {% endblock toolbar %}
 
