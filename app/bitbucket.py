@@ -1,12 +1,15 @@
 import os
 import subprocess as sp
+from conf import get_conf
+
+cnf = get_conf('BITBUCKET')
 
 
 def get_files(search_key,git_path=None):
 
     old_dir = os.getcwd()
     if not git_path:
-        git_path = "C:\\SD-Oracle-Practice\\ebiz_q2c"
+        git_path = cnf['local_git_dir']
     os.chdir(git_path)
     if search_key:
         ot = sp.run(["git","log",'--all','--grep',search_key,'--pretty=format:','--name-only'],capture_output=True)
