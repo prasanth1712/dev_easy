@@ -1,14 +1,12 @@
 from jira import JIRA,Issue,Project
 from conf import get_conf
 
-cnf = get_conf('JIRA')
-
-server = cnf['server_url']
-user_name = cnf['username']
-pwd = cnf['password']
-
 
 def get_objects(project,fixver=None,obj_id=None,fields=None):
+    cnf = get_conf('JIRA')
+    server = cnf['server_url']
+    user_name = cnf['username']
+    pwd = cnf['password']
     objs=[]
     obj={}
     try:
