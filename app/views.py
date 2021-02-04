@@ -8,7 +8,7 @@ from app.models.objectmodel import wmobject,upsert,wmobject_details,wmobject_att
 from django import forms
 from django.db.models import Count
 from django.db.models.functions import Substr
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from app.jira_api import get_objects
@@ -125,10 +125,13 @@ class upload_view(FormView):
             return render(request, self.template_name,{})
 
 
-class jira_load_view(LoginRequiredMixin,FormView):
+class jira_load_view(LoginRequiredMixin,PermissionRequiredMixin,FormView):
     template_name = 'jira_load.html'
     form_class = PullJiraProject
     success_url = '/sucess/'
+    permission_required = ('upload.add_upload')
+    permission_denied_message='You Dont Have Access'
+
 
     def post(self,request,*args,**kwargs):
         form = self.form_class(request.POST, request.FILES)
