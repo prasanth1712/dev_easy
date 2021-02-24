@@ -141,7 +141,7 @@ class jira_load_view(LoginRequiredMixin,PermissionRequiredMixin,FormView):
             data = get_objects(project=prjt,fixver=fixver)
             #cols = ['object_id','object_desc','object_rel','object_sprint','object_dev']
             cols = ['object_id','object_desc','object_rel','object_dev','object_type','object_track','object_qa']
-            #print(data)
+            print(data)
             upsert(wmobject,data,cols,'object_id')
             return render(request, self.template_name,{'message':'Upload successful'})
         else:

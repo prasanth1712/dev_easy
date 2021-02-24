@@ -13,7 +13,7 @@ def get_objects(project,fixver=None,obj_id=None,fields=None):
         if obj_id:
             jql_str ='issue = "{}" and issuetype in ("Story","Bug") '.format(obj_id)
         else:
-            jql_str ='project = "{}" and issuetype in ("Story","Bug") '.format(project)
+            jql_str ='project = "{}" and issuetype in ("Story","Bug") and fixVersion = "{}" '.format(project,fixver)
         jira = JIRA(server=server,basic_auth=(user_name,pwd))
         if not fields:
             fields='summary,reporter,issuetype,project,fixVersions,customfield_10401,customfield_10402'
@@ -21,6 +21,7 @@ def get_objects(project,fixver=None,obj_id=None,fields=None):
             if fields.find('fixVersions') <0:
                 fields+=',fixVersions'
         object_list = jira.search_issues(jql_str=jql_str,fields=fields,maxResults=200)
+        print(len(object_list))
         for i in range(0,len(object_list)):
             fix_ver = object_list[i].fields.fixVersions
             if (fix_ver and str(fix_ver[0]).strip()==str(fixver).strip()) or (obj_id):
